@@ -1,7 +1,7 @@
-import teamLogos from "../data/teamLogos";
-const checkLogo = (tricode) => {
+import teamLogos from "./teamLogos";
+const checkLogo = (cityCode) => {
     try {
-      let code = tricode;
+      let code = cityCode;
       let match = teamLogos.filter((a) => a.team === code && a);
       let src = match[0].src;
       //console.log("src is", src)

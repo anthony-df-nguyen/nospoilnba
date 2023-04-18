@@ -20,7 +20,7 @@ const goToToday = () => {
 };
 
 const jump1day = (date,mode) => {
-    let parsed = parseDate(date);
+    let parsed = parseDate(date,"short");
     let newDay;
     if (mode === "back") {
       newDay = moment(new Date(parsed))

@@ -1,4 +1,4 @@
-const gameStatus = (status, statustext) => {
+const gameStatus = (status: Number, statustext: String) => {
   if (status === 2) {
     return statustext;
   } else if (status === 3) {

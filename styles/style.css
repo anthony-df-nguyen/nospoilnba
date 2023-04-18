@@ -41,7 +41,6 @@ body {
 #datePicker {
   margin: 10px auto;
   width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
   font-family: "Roboto", sans-serif;
   text-align: center;
@@ -58,7 +57,6 @@ label {
   border-radius: 10px;
   padding: 8px;
   -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
   border: 0px solid #051c2d;
   font-weight: 400;
@@ -75,24 +73,15 @@ label {
 #gameContainer {
   display: block;
   width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
   margin: 1rem auto 8rem auto;
   padding: 0 1rem;
 }
 #gameContainer .gameGridFlex {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   margin: -10px 0 0 -10px;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
   flex-direction: row;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-box-pack: space-evenly;
-  -ms-flex-pack: space-evenly;
   justify-content: space-evenly;
 }
 @media only screen and (min-width:1024px) {
@@ -102,8 +91,6 @@ label {
 }
 #gameContainer .gameGridFlex .gameDiv {
   padding: 1rem;
-  -webkit-box-flex: 1;
-  -ms-flex-positive: 1;
   flex-grow: 1;
   background-color: white;
   text-align: center;
@@ -142,24 +129,20 @@ label {
 }
 .teamLogo {
   display: block;
+  position: relative;
   margin: 1rem auto;
-  width: 100%;
-  max-width: 6rem;
+  width: 6rem;
+  height: 6rem;
+}
+.teamLogo img {
+  object-fit: contain;
 }
 .timeButtons {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   text-align: center;
   margin: -10px 0 0 -10px;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
   flex-direction: row;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
 }
 .timeButtons button {
