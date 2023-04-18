@@ -1,4 +1,4 @@
-const teamLogos = [
+const teamLogos: { team: string; src: string }[] = [
   { team: "ATL", src: "/teamlogos/ATL.gif" },
   { team: "BKN", src: "/teamlogos/BKN.gif" },
   { team: "BOS", src: "/teamlogos/BOS.gif" },

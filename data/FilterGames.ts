@@ -1,6 +1,6 @@
 import moment from "moment";
 
-const FilterGames = (array, receivedDate) => {
+const FilterGames = (array:any[], receivedDate: string) => {
   //console.log("Array: ", array);
   //console.log("~ FilterGames ~ receivedDate", receivedDate);
   let day = receivedDate.slice(-2);

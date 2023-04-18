@@ -1,6 +1,5 @@
-const getLink = (id,home,away) => {
-    return `https://www.nba.com/game/${away}-vs-${home}-${id}?watch`
-  };
-  
-  export default getLink;
-  
+const getLink = (id: string, home: string, away: string) => {
+  return `https://www.nba.com/game/${away}-vs-${home}-${id}?watch`;
+};
+
+export default getLink;
