@@ -5,4 +5,5 @@ Tired of searching for game times but accidentally getting spoiled?</h2>
 <p>You can easily view the game status by Clicking 'Show Scores' or get the link directly to watch the game on NBA.com</p>
 <p>During live games, the status is behind by a few minutes since the NBA uses a different JSON source for live stats</p>
 
+
  -
