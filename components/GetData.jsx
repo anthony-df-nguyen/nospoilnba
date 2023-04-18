@@ -4,26 +4,26 @@ import FilterGames from "../data/FilterGames.js";
 import moment from "moment";
 import checkLogo from "../data/CheckLogo";
 import gameStatus from "../data/GameStatus";
-import getLink from "../data/GetLink"
+import getLink from "../data/GetLink";
+import axios from "axios";
 
 const GetData = (props) => {
-  const [fullArray,updateFullAray] = useState([])
+  const [fullArray, updateFullAray] = useState([]);
   const [array, updateArray] = useState([]);
-  //console.log("🚀 ~ file: GetData.jsx ~ line 9 ~ GetData ~ array", array)
+
+  const fetchData = async () => {
+    await axios.get("/api/getgames")
+      .then((res) => {
+        const data = res.data
+        updateFullAray(data);
+        let shorterArray = FilterGames(data, props.date);
+        updateArray(shorterArray);
+      })
+      .then(() => props.updateLoading("none"))
+      .then(() => props.updateGameText("block"));
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      await fetch("/api/getgames")
-        .then((a) => a.json())
-        .then((b) => b.leagueSchedule.gameDates)
-        .then((c) => {
-            updateFullAray(c);
-            let shorterArray = FilterGames(c, props.date);
-            updateArray(shorterArray);
-        })
-        .then(()=> props.updateLoading('none'))
-        .then(() => props.updateGameText("block"))
-    };
     if (array.length === 0) {
       fetchData();
     }
@@ -31,14 +31,17 @@ const GetData = (props) => {
   }, []);
 
   useEffect(() => {
-      if (fullArray.length > 0) {
-        let shorterArray = FilterGames(fullArray, props.date);
-        updateArray(shorterArray);
-      }
-      // eslint-disable-next-line
+    if (fullArray.length > 0) {
+      let shorterArray = FilterGames(fullArray, props.date);
+      updateArray(shorterArray);
+    }
+    // eslint-disable-next-line
   }, [props.date]);
 
-  const noGames = () => array.length === 0 && <h2 style={{textAlign:'center'}}>No games on this day</h2>
+  const noGames = () =>
+    array.length === 0 && (
+      <h2 style={{ textAlign: "center" }}>No games on this day</h2>
+    );
 
   return (
     <>
@@ -58,9 +61,11 @@ const GetData = (props) => {
             awayScore={row.awayTeam.score}
             homeLogoSource={checkLogo(row.homeTeam.teamTricode)}
             awayLogoSource={checkLogo(row.awayTeam.teamTricode)}
-            link={getLink(row.gameId,row.homeTeam.teamTricode,row.awayTeam.teamTricode)}
-            >
-            </Card>
+            link={getLink(
+              row.gameId,
+              row.homeTeam.teamTricode,
+              row.awayTeam.teamTricode
+            )}></Card>
         );
       })}
     </>

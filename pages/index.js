@@ -62,7 +62,7 @@ function App() {
       </div>
       <div style={{display: showGameText}}>
       <div id="gamesOn" style={{ textAlign: "center" }}>
-        Games on <span>{parseDate(date, "long")}</span>
+        {/* Games on <span>{parseDate(date, "long")}</span> */}
       </div>
       <div id="gameContainer">
         <div className="gameGridFlex">
