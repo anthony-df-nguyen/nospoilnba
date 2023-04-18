@@ -2,27 +2,53 @@ import React, { useState } from "react";
 import Button from "./Button";
 import Image from "next/image";
 
-const Card = ({gameStatus,gameTime,homeScore,awayScore,homeLogoSource,homeCity,homeTeam,awayLogoSource,awayCity,awayTeam,link}) => {
+interface PropTypes {
+  gameStatus: string;
+  gameTime: string;
+  homeScore: number;
+  awayScore: number;
+  homeLogoSource: string;
+  homeCity: string;
+  homeTeam: string;
+  awayLogoSource: string;
+  awayCity: string;
+  awayTeam: string;
+  link: string;
+}
+
+const Card = ({
+  gameStatus,
+  gameTime,
+  homeScore,
+  awayScore,
+  homeLogoSource,
+  homeCity,
+  homeTeam,
+  awayLogoSource,
+  awayCity,
+  awayTeam,
+  link,
+}: PropTypes) => {
   const [showScore, updateShowScore] = useState("none");
-  const [showButtonText,updateButtonText] =useState("Show Scores")
+  const [showButtonText, updateButtonText] = useState("Show Scores");
 
   const toggleScore = () => {
     switch (showScore) {
       case "none":
         updateShowScore("block");
-        updateButtonText("Hide Scores")
+        updateButtonText("Hide Scores");
         break;
       case "block":
         updateShowScore("none");
-        updateButtonText("Show Scores")
+        updateButtonText("Show Scores");
         break;
       default:
         updateShowScore("block");
-        updateButtonText("Hide Scores")
+        updateButtonText("Hide Scores");
         break;
     }
   };
-  
+
   return (
     <div className="gameDiv">
       <div className="status">{gameStatus}</div>
