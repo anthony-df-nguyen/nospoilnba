@@ -8,7 +8,7 @@ const gameStatus = (status: number, statustext: string) => {
     if (listedStatus === "PPD") {
       return "PPD";
     } else {
-      return "Local Time";
+      return "Scheduled";
     }
   }
 };

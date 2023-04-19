@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-gray-200 text-gray-900;
+}
+.container {
+  @apply mx-auto px-4;
+}
+
+.react-datepicker__input-container {
+  display: block !important;
+  @apply mx-auto max-w-[200px];
+  input {
+    @apply text-center px-3 py-2 rounded-md border box-border w-[200px] ring-1 ring-inset ring-gray-300 text-sm font-semibold text-gray-900;
+  }
+}
