@@ -18,7 +18,7 @@ function App() {
     moment(new Date()).format("yyyy-MM-DD")
   );
 
-  const [showLoading, updateLoading] = useState("block");
+  const [showLoading, updateLoading] = useState(true);
   const [showGameText, updateShowGameText] = useState("none");
 
   useEffect(() => {
@@ -61,9 +61,11 @@ function App() {
         />
       </div>
 
-      {/* <div id="loading" style={{ display: showLoading }}>
-        <Loading />
-      </div> */}
+      {showLoading && (
+        <div className="container">
+          <Loading />
+        </div>
+      )}
       <div style={{ display: showGameText }}>
         <div className="text-center mt-4">
           <span>Games on {date && parseDate(date, "long")}</span>

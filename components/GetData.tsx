@@ -20,7 +20,7 @@ const GetData = ({ date, updateLoading, updateGameText }) => {
         let shorterArray = FilterGames(data, date);
         updateArray(shorterArray);
       })
-      .then(() => updateLoading("none"))
+      .then(() => updateLoading(false))
       .then(() => updateGameText("block"));
   };
 

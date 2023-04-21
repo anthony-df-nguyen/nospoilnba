@@ -1,14 +1,10 @@
 import React from "react";
 const Loading = () => {
   return (
-    <div>
+    <div className="mt-4 block mx-auto text-center">
       <p>Loading games...</p>
       <svg
-        style={{
-          margin: "auto",
-          background: "rgb(241, 242, 243)",
-          display: "block",
-        }}
+        className="w-[4rem] h-[4rem] block mx-auto"
         viewBox="0 0 100 100"
         preserveAspectRatio="xMidYMid">
         <g transform="rotate(0 50 50)">
