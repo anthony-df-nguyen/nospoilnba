@@ -71,7 +71,7 @@ function App() {
           <span>Games on {date && parseDate(date, "long")}</span>
         </div>
         <div className="container mt-6 mb-8">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="gap-6 flex flex-wrap justify-center">
             <GetData
               date={date}
               updateLoading={updateLoading}

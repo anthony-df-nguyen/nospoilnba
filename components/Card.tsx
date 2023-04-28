@@ -81,7 +81,7 @@ const Card = ({
   };
 
   return (
-    <div className=" rounded-lg bg-white shadow relative">
+    <div className=" rounded-lg bg-white shadow relative min-w-[90%] md:min-w-[400px]">
       <ul role="list" className="">
         <li>
           {/* Status and Time */}
