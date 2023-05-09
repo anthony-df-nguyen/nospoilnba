@@ -10,7 +10,9 @@ import axios from "axios";
 const GetData = ({ date, updateLoading, updateGameText }) => {
   const [fullArray, updateFullArray] = useState<any[]>([]);
   const [array, updateArray] = useState<any[]>([]);
+  const [liveArray, updateLiveArray] = useState<any[]>([]);
 
+  //Fetch All Games
   const fetchData = async () => {
     await axios
       .get("/api/getgames")
@@ -24,9 +26,35 @@ const GetData = ({ date, updateLoading, updateGameText }) => {
       .then(() => updateGameText("block"));
   };
 
+  //Fetch Only Today/Live Stats
+  const fetchLive = async () => {
+    await axios
+      .get("/api/getlivestats")
+      .then((res) => updateLiveArray(res.data));
+  };
+
+  //Looks through the live array received to get most recent score
+  const matchLiveStats = (id: string, backupHomeScore: number, backupAwayScore: number, backupStatusText: string) => {
+    const match = liveArray.filter((game) => game.gameId === id)[0];
+
+    //If there is live data found, fallback to the slightly older/slower syncing stats from the fetchData API
+    const homeScore = match ? match.homeTeam.score : backupHomeScore;
+    const awayScore = match ? match.awayTeam.score : backupAwayScore;
+    const gameText = match ? match.gameStatusText : backupStatusText;
+    return {
+      gameStatusText: gameText,
+      homeScore: homeScore,
+      awayScore: awayScore,
+    };
+  };
+
+
   useEffect(() => {
     if (array.length === 0) {
       fetchData();
+      fetchLive();
+      //Setting Refresh Timer
+      setInterval(fetchLive, 15000);
     }
     // eslint-disable-next-line
   }, []);
@@ -49,17 +77,23 @@ const GetData = ({ date, updateLoading, updateGameText }) => {
       {noGames()}
       {array.length > 0 &&
         array.map((row, i) => {
+          const gameObject = matchLiveStats(
+            row.gameId,
+            row.homeTeam.score,
+            row.awayTeam.score,
+            row.gameStatusText
+          );
           return (
             <Card
               key={i}
-              gameStatus={gameStatus(row.gameStatus, row.gameStatusText)}
+              gameStatus={gameStatus(row.gameStatus, gameObject.gameStatusText)}
               gameTime={moment(row.gameDateTimeUTC).format("LT")}
               homeTeam={row.homeTeam.teamName}
               awayTeam={row.awayTeam.teamName}
               homeCity={row.homeTeam.teamCity}
               awayCity={row.awayTeam.teamCity}
-              homeScore={row.homeTeam.score}
-              awayScore={row.awayTeam.score}
+              homeScore={gameObject.homeScore}
+              awayScore={gameObject.awayScore}
               homeLogoSource={checkLogo(row.homeTeam.teamTricode)}
               awayLogoSource={checkLogo(row.awayTeam.teamTricode)}
               link={getLink(
