@@ -1,44 +1,31 @@
 import moment from "moment";
-function parseDate(date: string, mode: string) {
-  let day = date.slice(-2);
-  let month = date.slice(5, 7);
-  let year = date.slice(0, 4);
-  switch (mode) {
-    case "short":
-      return moment(new Date(`${month}/${day}/${year}`)).format("l");
-    case "long":
-      return moment(new Date(`${month}/${day}/${year}`)).format("dddd | LL");
-    default:
-      return moment(new Date(`${month}/${day}/${year}`)).format("l");
-  }
-}
 
-const goToToday = () => {
-  const today = moment(new Date()).format("yyyy-MM-DD");
-  sessionStorage.setItem("lastSetDay", today);
-  return today;
+export const DATE_FORMAT = "YYYY-MM-DD";
+
+export const todayKey = () => moment().format(DATE_FORMAT);
+
+export const addDays = (key: string, days: number) =>
+  moment(key, DATE_FORMAT).add(days, "days").format(DATE_FORMAT);
+
+export const longLabel = (key: string) =>
+  moment(key, DATE_FORMAT).format("dddd, MMMM D");
+
+// "Today", "Tomorrow", "Yesterday", otherwise "Sat, Oct 17"
+export const groupLabel = (key: string) => {
+  const diff = moment(key, DATE_FORMAT).diff(moment(todayKey(), DATE_FORMAT), "days");
+  const day = moment(key, DATE_FORMAT).format("ddd, MMM D");
+  if (diff === 0) return `Today · ${day}`;
+  if (diff === 1) return `Tomorrow · ${day}`;
+  if (diff === -1) return `Yesterday · ${day}`;
+  return day;
 };
 
-const jump1day = (date: string, mode: string) => {
-  let parsed = parseDate(date, "short");
-  let newDay;
-  if (mode === "back") {
-    newDay = moment(new Date(parsed)).subtract(1, "days").format("yyyy-MM-DD");
-  } else if (mode === "forward") {
-    newDay = moment(new Date(parsed)).add(1, "days").format("yyyy-MM-DD");
-  }
-  sessionStorage.setItem("lastSetDay", newDay);
-  return newDay;
-};
+// The viewer's local calendar day a game starts on
+export const localDayOf = (utc: string) => moment(utc).format(DATE_FORMAT);
 
-const convertPickerDate = (date: string) => {
-  const theDate = moment(new Date(date)).format("L");
-  const day = theDate.slice(3, 5);
-  const month = theDate.slice(0, 2);
-  const year = theDate.slice(-4);
-  const useDate = `${year}-${month}-${day}`;
-  sessionStorage.setItem("lastSetDay", useDate);
-  return useDate;
-};
-
-export { parseDate, goToToday, jump1day, convertPickerDate };
+// ESPN lists games under the US schedule day. Games on that day tip off roughly
+// 17:00Z to 03:00Z the next day, so map both ends to the viewer's local days.
+export const localDaysForScheduleDay = (key: string) => [
+  moment.utc(`${key}T17:00`).local().format(DATE_FORMAT),
+  moment.utc(`${key}T03:00`).add(1, "days").local().format(DATE_FORMAT),
+];

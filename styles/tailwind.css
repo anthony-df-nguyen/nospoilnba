@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-dm), ui-sans-serif, system-ui, sans-serif;
+  --color-canvas: #f6f5f2;
+  --color-surface: #ffffff;
+  --color-line: #e4e1da;
+  --color-ink: #1c1b19;
+  --color-mute: #66635c;
+  --color-accent: #1d428a;
+  --color-on-accent: #ffffff;
+  --color-hot: #c8102e;
+  --color-track: #e9e6df;
+}
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-canvas: #121214;
+  --color-surface: #1b1b1f;
+  --color-line: #2d2d34;
+  --color-ink: #f2f1ee;
+  --color-mute: #a6a49e;
+  --color-accent: #7f9fe0;
+  --color-on-accent: #121214;
+  --color-hot: #ff5a6e;
+  --color-track: #26262c;
+}
+
+body {
+  @apply bg-canvas text-ink antialiased;
+}
+
+button {
+  cursor: pointer;
+}
+
+dialog::backdrop {
+  background: rgb(10 10 14 / 0.5);
+}
